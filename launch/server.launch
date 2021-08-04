@@ -1,0 +1,5 @@
+<launch>
+  <node name="tcp_server" pkg="tcp_bridge" type="tcpServer" respawn="false" output="screen">
+    <param name="port" value="9939" />
+  </node>
+</launch>

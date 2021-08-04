@@ -1,0 +1,6 @@
+<launch>
+  <node name="tcp_client" pkg="tcp_bridge" type="tcpClient" respawn="false" output="screen">
+    <param name="IP" value="127.0.0.1" />
+    <param name="port" value="9939" />
+  </node>
+</launch>
