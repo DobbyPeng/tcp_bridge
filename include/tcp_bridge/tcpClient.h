@@ -40,7 +40,7 @@ class TCPClient
     }
   private:
     int sockfd_;
-    struct sockaddr_in serv_addr_, cli_addr;
+    struct sockaddr_in serv_addr_;
     std::string serv_addr_str_;
     std::string Message_;
     void error(const char *msg)
@@ -59,7 +59,7 @@ class ROSBridge
     int port_;
     static ros::Publisher pub_server_cmd_;
 
-    static void *loop(void *m);
+    TCPClient tcpcli_;
   private:
     ros::NodeHandle node_;
     ros::Subscriber sub_respond2server_;
