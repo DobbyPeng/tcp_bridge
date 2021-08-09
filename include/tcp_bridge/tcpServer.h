@@ -68,6 +68,8 @@ class ROSBridge
     int port_;
     static ros::Publisher pub_client_cmd_;
 
+    TCPServer tcpser_;
+
 //    static void *loop(void *m);
   private:
     ros::NodeHandle node_;
