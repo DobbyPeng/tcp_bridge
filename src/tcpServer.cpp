@@ -88,25 +88,13 @@ void ROSBridge::respond2FactoryCB(const std_msgs::String::ConstPtr &str)
   tcpser_.Send(str->data);
 }
 
-//void * ROSBridge::loop(void * m)
-//{
-//  pthread_detach(pthread_self());
-//  while(ros::ok())
-//  {
-//    std::string str = tcpser_.getMessage();
-//    if( str != "" )
-//    {
-//      std::cout << "Message:" << str << std::endl;
-//      std_msgs::String factoryCommand;
-//      factoryCommand.data = str;
-//      pub_client_cmd_.publish(factoryCommand);
-//      tcpser_.clean();
-//    }
-//    usleep(1000);
-//  }
-//  tcpser_.detach();
-//  pthread_exit(NULL);
-//}
+void * ROSBridge::loop(void * m)
+{
+  pthread_detach(pthread_self());
+  ros::waitForShutdown();
+  tcpser_.detach();
+  pthread_exit(NULL);
+}
 
 int main(int argc, char **argv)
 {
@@ -115,6 +103,8 @@ int main(int argc, char **argv)
   ROSBridge RFI(nh);
   ros::AsyncSpinner spinner(1); // Use 1 threads
   spinner.start();
+  pthread_t shutdownThread;
+  pthread_create(&shutdownThread, NULL, &RFI.loop, (void *)0);
   RFI.tcpser_.receive();
   return 0;
 }

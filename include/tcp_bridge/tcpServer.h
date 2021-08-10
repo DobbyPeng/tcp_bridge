@@ -68,9 +68,9 @@ class ROSBridge
     int port_;
     static ros::Publisher pub_client_cmd_;
 
-    TCPServer tcpser_;
+    static TCPServer tcpser_;
 
-//    static void *loop(void *m);
+    static void *loop(void *m);
   private:
     ros::NodeHandle node_;
     ros::Subscriber sub_respond2factory_;
@@ -79,5 +79,6 @@ class ROSBridge
 
 // Publisher
 ros::Publisher ROSBridge::pub_client_cmd_;
+TCPServer ROSBridge::tcpser_;
 
 #endif // FACTORY_INTERFACE_H
